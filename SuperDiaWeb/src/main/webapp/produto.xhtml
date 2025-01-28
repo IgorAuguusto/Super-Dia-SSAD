@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="pt">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Produto</title>
+    </h:head>
+    <h:body>
+        <h:form id="cadastro">
+            <h2>
+                <h:outputText value="Novo Produto" rendered="#{empty produtoMB.produto.id}" />
+                <h:outputText value="Editar Produto" rendered="#{not empty produtoMB.produto.id}" />
+            </h2>
+            <fieldset>
+                <legend>Dados do produto</legend>
+                
+                <h:outputLabel value="Nome:" for="nome" />
+                <h:inputText id="nome" value="#{produtoMB.produto.nome}">
+                    <f:validateLength minimum="3" maximum="50" />
+                </h:inputText>
+                <h:message for="nome" style="color: red;" />
+
+                <h:outputLabel value="Descrição:" for="descricao" />
+                <h:inputText id="descricao" value="#{produtoMB.produto.descricao}">
+                    <f:validateLength maximum="200" />
+                </h:inputText>
+                <h:message for="descricao" style="color: red;" />
+
+                <h:outputLabel value="Preço:" for="preco" />
+                <h:inputText id="preco" value="#{produtoMB.produto.preco}">
+                    <f:validateDoubleRange minimum="0.01" />
+                </h:inputText>
+                <h:message for="preco" style="color: red;" />
+
+                <h:outputLabel value="Estoque Mínimo:" for="estoqueMinimo" />
+                <h:inputText id="estoqueMinimo" value="#{produtoMB.produto.estoqueMinimo}">
+                    <f:validateLongRange minimum="0" />
+                </h:inputText>
+                <h:message for="estoqueMinimo" style="color: red;" />
+
+                <h:outputLabel value="Quantidade em Estoque:" for="quantidadeEstoque" />
+                <h:inputText id="quantidadeEstoque" value="#{produtoMB.produto.quantidadeEstoque}">
+                    <f:validateLongRange minimum="0" />
+                </h:inputText>
+                <h:message for="quantidadeEstoque" style="color: red;" />
+
+                <h:commandButton value="Gravar" action="#{produtoMB.grava}">
+                    <f:ajax execute="@form" render=":lista :cadastro" />
+                </h:commandButton>
+                <h:commandButton value="Cancelar Edição" rendered="#{not empty produtoMB.produto.id}" action="#{produtoMB.cancelarEdicao}">
+                    <f:ajax render=":cadastro" />
+                </h:commandButton>
+            </fieldset>
+        </h:form>
+
+        <h2>Lista de produtos</h2>
+        <h:form id="lista">
+            <h:dataTable value="#{produtoMB.produtos}" var="produto" styleClass="dados" rowClasses="impar, par">
+                <h:column>
+                    <f:facet name="header">Nome</f:facet>
+                    #{produto.nome}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Descrição</f:facet>
+                    #{produto.descricao}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Preço</f:facet>
+                    #{produto.preco}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Estoque Mínimo</f:facet>
+                    #{produto.estoqueMinimo}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Quantidade em Estoque</f:facet>
+                    #{produto.quantidadeEstoque}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Ações</f:facet>
+                    <h:commandLink value="Alterar" styleClass="btn" style="margin-right:8px;">
+                        <f:setPropertyActionListener value="#{produto}" target="#{produtoMB.produto}" />
+                        <f:ajax render=":lista :cadastro" />
+                    </h:commandLink>
+                    <h:commandLink action="#{produtoMB.remover(produto)}" value="Remover" styleClass="btn btn-danger">
+                        <f:ajax render=":lista" />
+                    </h:commandLink>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</html>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="pt">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Pessoa</title>
+</h:head>
+<h:body>
+	<h:form id="cadastro">
+		<h2>
+			<h:outputText value="Nova Pessoa"
+				rendered="#{empty pessoaMB.pessoa.id}" />
+			<h:outputText value="Editar Pessoa"
+				rendered="#{not empty pessoaMB.pessoa.id}" />
+		</h2>
+		<fieldset>
+			<legend>Dados da Pessoa</legend>
+
+			<h:outputLabel value="Nome:" for="nome" />
+			<h:inputText id="nome" value="#{pessoaMB.pessoa.nome}">
+				<f:validateLength minimum="3" maximum="50" />
+			</h:inputText>
+			<h:message for="nome" style="color: red;" />
+
+			<h:outputLabel value="Endereço:" for="endereco" />
+			<h:inputText id="endereco" value="#{pessoaMB.pessoa.endereco}">
+				<f:validateLength minimum="5" maximum="100" />
+			</h:inputText>
+			<h:message for="endereco" style="color: red;" />
+
+			<h:outputLabel value="CPF:" for="cpf" />
+			<h:inputText id="cpf" value="#{pessoaMB.pessoa.cpf}">
+				<f:validateRegex pattern="^\d{11}$" />
+			</h:inputText>
+			<h:message for="cpf" style="color: red;" />
+
+			<h:outputLabel value="E-mail:" for="email" />
+			<h:inputText id="email" value="#{pessoaMB.pessoa.email}">
+				<f:validateLength maximum="100" />
+			</h:inputText>
+			<h:message for="email" style="color: red;" />
+
+			<h:outputLabel value="Telefone:" for="telefone" />
+			<h:inputText id="telefone" value="#{pessoaMB.pessoa.telefone}">
+				<f:validateRegex pattern="\d{10,11}" />
+			</h:inputText>
+			<h:message for="telefone" style="color: red;" />
+
+			<h:outputLabel value="Data de Nascimento:" for="dataNascimento" />
+			<h:inputText id="dataNascimento"
+				value="#{pessoaMB.pessoa.dataNascimento}" required="true"
+				label="Data de Nascimento" placeholder="dd/MM/yyyy">
+				<f:converter converterId="localDateConverter" />
+			</h:inputText>
+			<h:message for="dataNascimento" style="color: red;" />
+
+
+			<h:commandButton value="Gravar" action="#{pessoaMB.grava}">
+				<f:ajax execute="@form" render=":lista :cadastro" />
+			</h:commandButton>
+			<h:commandButton value="Cancelar Edição"
+				rendered="#{not empty pessoaMB.pessoa.id}"
+				action="#{pessoaMB.cancelarEdicao}">
+				<f:ajax render=":cadastro" />
+			</h:commandButton>
+		</fieldset>
+	</h:form>
+
+	<h2>Lista de Pessoas</h2>
+	<h:form id="lista">
+		<h:dataTable value="#{pessoaMB.pessoas}" var="pessoa"
+			styleClass="dados" rowClasses="impar, par">
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+                    #{pessoa.nome}
+                </h:column>
+			<h:column>
+				<f:facet name="header">Endereço</f:facet>
+                    #{pessoa.endereco}
+                </h:column>
+			<h:column>
+				<f:facet name="header">CPF</f:facet>
+                    #{pessoa.cpf}
+                </h:column>
+			<h:column>
+				<f:facet name="header">E-mail</f:facet>
+                    #{pessoa.email}
+                </h:column>
+			<h:column>
+				<f:facet name="header">Telefone</f:facet>
+                    #{pessoa.telefone}
+                </h:column>
+			<h:column>
+				<f:facet name="header">Data de Nascimento</f:facet>
+                    #{pessoa.dataNascimentoFormatted}
+                </h:column>
+			<h:column>
+				<f:facet name="header">Ações</f:facet>
+				<h:commandLink value="Alterar" styleClass="btn"
+					style="margin-right:8px;">
+					<f:setPropertyActionListener value="#{pessoa}"
+						target="#{pessoaMB.pessoa}" />
+					<f:ajax render=":lista :cadastro" />
+				</h:commandLink>
+				<h:commandLink action="#{pessoaMB.remover(pessoa)}" value="Remover"
+					styleClass="btn btn-danger">
+					<f:ajax render=":lista" />
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

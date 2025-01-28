@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="pt">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Usuário</title>
+    </h:head>
+    <h:body>
+        <h:form id="cadastro">
+            <h2>
+                <h:outputText value="Novo Usuário" rendered="#{empty usuarioMB.usuario.id}" />
+                <h:outputText value="Editar Usuário" rendered="#{not empty usuarioMB.usuario.id}" />
+            </h2>
+            <fieldset>
+                <legend>Dados do Usuário</legend>
+                
+                <h:selectOneMenu id="pessoa" value="#{usuarioMB.usuario.pessoa.id}">
+			    <f:selectItem itemValue="" itemLabel="Selecione uma pessoa" noSelectionOption="true" />
+			    <f:selectItems value="#{pessoaMB.pessoas}" var="pessoa" itemValue="#{pessoa.id}" itemLabel="#{pessoa.nome}" />
+				</h:selectOneMenu>
+				<h:message for="pessoa" style="color: red;" />
+
+
+                <h:outputLabel value="Perfil:" for="perfil" />
+                <h:selectOneMenu id="perfil" value="#{usuarioMB.usuario.perfil}">
+                    <f:selectItem itemValue="" itemLabel="Selecione um perfil" noSelectionOption="true" />
+                    <f:selectItems value="#{usuarioMB.perfis}" var="perfil" itemValue="#{perfil}" itemLabel="#{perfil.perfil}" />
+                </h:selectOneMenu>
+                <h:message for="perfil" style="color: red;" />
+                
+                <h:outputLabel value="Senha:" for="senha" />
+                <h:inputSecret id="senha" value="#{usuarioMB.usuario.senha}">
+                    <f:validateLength minimum="4" maximum="20" />
+                </h:inputSecret>
+                <h:message for="senha" style="color: red;" />
+
+                <h:commandButton value="Gravar" action="#{usuarioMB.grava}">
+                    <f:ajax execute="@form" render=":lista :cadastro" />
+                </h:commandButton>
+                <h:commandButton value="Cancelar Edição" rendered="#{not empty usuarioMB.usuario.id}" action="#{usuarioMB.cancelarEdicao}">
+                    <f:ajax render=":cadastro" />
+                </h:commandButton>
+            </fieldset>
+        </h:form>
+
+        <h2>Lista de Usuários</h2>
+        <h:form id="lista">
+            <h:dataTable value="#{usuarioMB.usuarios}" var="usuario" styleClass="dados" rowClasses="impar, par">
+                <h:column>
+                    <f:facet name="header">Pessoa</f:facet>
+                    #{usuario.pessoa.nome}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Perfil</f:facet>
+                    #{usuario.perfil.perfil}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Ações</f:facet>
+                    <h:commandLink value="Alterar" styleClass="btn" style="margin-right:8px;">
+                        <f:setPropertyActionListener value="#{usuario}" target="#{usuarioMB.usuario}" />
+                        <f:ajax render=":lista :cadastro" />
+                    </h:commandLink>
+                    <h:commandLink action="#{usuarioMB.remover(usuario)}" value="Remover" styleClass="btn btn-danger">
+                        <f:ajax render=":lista" />
+                    </h:commandLink>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</html>
