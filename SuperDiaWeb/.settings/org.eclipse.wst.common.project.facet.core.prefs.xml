@@ -4,4 +4,5 @@
       <attribute name="provider-id" value="runtime-library-provider"/>
     </node>
   </facet>
+  <facet id="jst.jaxrs"/>
 </root>

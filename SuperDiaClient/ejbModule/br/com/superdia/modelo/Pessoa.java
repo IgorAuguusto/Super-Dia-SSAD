@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import org.hibernate.validator.constraints.br.CPF;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,11 +34,13 @@ public class Pessoa implements Serializable {
     private String endereco;
 
     @NotNull(message = "O CPF não pode ser nulo")
-    @Pattern(regexp = "^\\d{11}$" , message = "O CPF deve conter exatamente 11 dígitos numéricos")
+    @Column(unique = true)
+    @CPF(message = "CPF inválido")
     private String cpf;
 
     @NotNull(message = "O e-mail não pode ser nulo")
     @Email(message = "O e-mail deve ser válido")
+    @Column(unique = true)
     private String email;
 
     @NotNull(message = "O telefone não pode ser nulo")

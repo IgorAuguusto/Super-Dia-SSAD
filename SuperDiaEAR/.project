@@ -4,8 +4,8 @@
 	<comment></comment>
 	<projects>
 		<project>SuperDia</project>
-		<project>SuperDiaClient</project>
 		<project>SuperDiaWeb</project>
+		<project>SuperDiaClient</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

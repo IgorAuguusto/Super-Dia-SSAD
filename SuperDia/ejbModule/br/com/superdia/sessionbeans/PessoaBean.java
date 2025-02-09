@@ -42,7 +42,7 @@ public class PessoaBean implements IPessoa {
 	}//getPessoas()
 
 	@Override
-	public Pessoa buscarPessoa(Long id) {
+	public Pessoa getById(Long id) {
 		return em.find(Pessoa.class, id);
 	}
 

@@ -9,4 +9,5 @@ public interface IProduto {
 	void remove(Produto produto);
 	void altera(Produto produto);
 	List<Produto> getProdutos();
+	Produto getById(Long id);
 }//IProduto

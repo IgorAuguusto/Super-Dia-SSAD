@@ -9,5 +9,5 @@ public interface IPessoa {
 	void remove(Pessoa pessoa);
 	void altera(Pessoa pessoa);
 	List<Pessoa> getPessoas();
-	Pessoa buscarPessoa(Long id);
+	Pessoa getById(Long id);
 }//IPessoa

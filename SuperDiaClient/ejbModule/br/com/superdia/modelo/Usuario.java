@@ -3,6 +3,7 @@ package br.com.superdia.modelo;
 import java.io.Serializable;
 
 import br.com.superdia.enums.Perfil;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +21,7 @@ public class Usuario implements Serializable {
     private Long id;
 
     @NotNull(message = "A pessoa vinculada ao usuário não pode ser nula")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Pessoa pessoa;
     
     @NotNull(message = "A senha não pode ser nul")

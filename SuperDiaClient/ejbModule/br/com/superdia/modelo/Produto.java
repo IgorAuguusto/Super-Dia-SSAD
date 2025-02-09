@@ -37,6 +37,10 @@ public class Produto implements Serializable {
     @NotNull(message = "A quantidade em estoque não pode ser nula")
     @Min(value = 0, message = "A quantidade em estoque deve ser igual ou maior que zero")
     private Integer quantidadeEstoque;
+    
+    private String imageUrl;
+    
+    private String vendidoPor;
 
     public Long getId() {
         return id;
@@ -85,11 +89,30 @@ public class Produto implements Serializable {
     public void setQuantidadeEstoque(Integer quantidadeEstoque) {
         this.quantidadeEstoque = quantidadeEstoque;
     } // setQuantidadeEstoque()
+    
+    public String getImageUrl() {
+		return imageUrl;
+	}
 
-    @Override
-    public String toString() {
-        return String.format("id = %s, nome = %s, descricao = %s, preco = %s, estoqueMinimo = %s, quantidadeEstoque = %s",
-                id, nome, descricao, preco, estoqueMinimo, quantidadeEstoque);
-    } // toString()
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
+	public String getVendidoPor() {
+		return vendidoPor;
+	}
+
+	public void setVendidoPor(String vendidoPor) {
+		this.vendidoPor = vendidoPor;
+	}
+
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", preco=" + preco
+				+ ", estoqueMinimo=" + estoqueMinimo + ", quantidadeEstoque=" + quantidadeEstoque + ", imageUrl="
+				+ imageUrl + ", vendidoPor=" + vendidoPor + "]";
+	}
+
+	
+	
 } // Produto

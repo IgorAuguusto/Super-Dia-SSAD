@@ -5,15 +5,16 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/SuperDia"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/SuperDiaClient"/>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/WildFly 27.0 Runtime">
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/WildFly 33.0 Runtime">
 		<attributes>
-			<attribute name="owner.project.facets" value="jst.jsf;jst.web"/>
+			<attribute name="owner.project.facets" value="jpt.jpa;jst.jsf;jst.web"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/SuperDiaClient"/>
-	<classpathentry kind="lib" path="D:/JARS/jakarta.jakartaee-api-10.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Joao Lucas/OneDrive - 6pv31s/Documents/Faculdade/9periodo/SSAD/jakarta.jakartaee-api-10.0.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
