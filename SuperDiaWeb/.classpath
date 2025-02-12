@@ -16,5 +16,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/Users/Joao Lucas/OneDrive - 6pv31s/Documents/Faculdade/9periodo/SSAD/jakarta.jakartaee-api-10.0.0.jar"/>
+	<classpathentry kind="lib" path="/SuperDia/jars/jbcrypt-0.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

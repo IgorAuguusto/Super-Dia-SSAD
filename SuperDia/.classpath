@@ -12,6 +12,15 @@
 			<attribute name="owner.project.facets" value="jst.ejb;jpt.jpa"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="jars/jbcrypt-0.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="jars/jbcrypt-0.4.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="jars/jackson-databind-2.18.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

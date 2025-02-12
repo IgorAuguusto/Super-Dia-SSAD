@@ -14,20 +14,38 @@ import jakarta.validation.constraints.Size;
 @Entity
 public class Produto implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    
 
-    @Id
+    public Produto(
+			@NotNull(message = "O nome do produto não pode ser nulo") @Size(min = 3, max = 50, message = "O nome do produto deve ter entre 3 e 50 caracteres") String nome,
+			@Size(max = 200, message = "A descrição não pode exceder 200 caracteres") String descricao,
+			@NotNull(message = "O preço do produto não pode ser nulo") @DecimalMin(value = "0.0", inclusive = false, message = "O preço deve ser maior que zero") Double preco,
+			@NotNull(message = "O estoque mínimo não pode ser nulo") @Min(value = 0, message = "O estoque mínimo deve ser igual ou maior que zero") Integer estoqueMinimo,
+			@NotNull(message = "A quantidade em estoque não pode ser nula") @Min(value = 0, message = "A quantidade em estoque deve ser igual ou maior que zero") Integer quantidadeEstoque,
+			String imageUrl, String vendidoPor) {
+		super();
+		this.nome = nome;
+		this.descricao = descricao;
+		this.preco = preco;
+		this.estoqueMinimo = estoqueMinimo;
+		this.quantidadeEstoque = quantidadeEstoque;
+		this.imageUrl = imageUrl;
+		this.vendidoPor = vendidoPor;
+	}
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull(message = "O nome do produto não pode ser nulo")
-    @Size(min = 3, max = 50, message = "O nome do produto deve ter entre 3 e 50 caracteres")
+    @Size(min = 3, message = "O nome do produto deve ter no mínimo 3 caracteres")
     private String nome;
 
     @Size(max = 200, message = "A descrição não pode exceder 200 caracteres")
     private String descricao;
 
     @NotNull(message = "O preço do produto não pode ser nulo")
-    @DecimalMin(value = "0.0", inclusive = false, message = "O preço deve ser maior que zero")
     private Double preco;
 
     @NotNull(message = "O estoque mínimo não pode ser nulo")

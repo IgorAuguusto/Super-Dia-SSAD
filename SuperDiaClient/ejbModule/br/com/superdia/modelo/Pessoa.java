@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import jakarta.json.bind.annotation.JsonbDateFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,11 +27,11 @@ public class Pessoa implements Serializable {
     private Long id;
 
     @NotNull(message = "O nome não pode ser nulo")
-    @Size(min = 3, max = 50, message = "O nome deve ter entre 3 e 50 caracteres")
+    @Size(min = 3, message = "O nome deve ter no mínimo 3 caracteres")
     private String nome;
 
     @NotNull(message = "O endereço não pode ser nulo")
-    @Size(min = 5, max = 100, message = "O endereço deve ter entre 5 e 100 caracteres")
+    @Size(min = 5, message = "O endereço deve ter no mínimo 5 caracteres")
     private String endereco;
 
     @NotNull(message = "O CPF não pode ser nulo")
@@ -48,6 +49,7 @@ public class Pessoa implements Serializable {
     private String telefone;
 
     @NotNull(message = "A data de nascimento não pode ser nula")
+    @JsonbDateFormat(value = "dd/MM/yyyy")
     private LocalDate dataNascimento;
 
     public Long getId() {

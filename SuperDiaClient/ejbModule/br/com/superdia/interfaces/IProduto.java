@@ -10,4 +10,5 @@ public interface IProduto {
 	void altera(Produto produto);
 	List<Produto> getProdutos();
 	Produto getById(Long id);
+	boolean importarProdutos(String url);
 }//IProduto

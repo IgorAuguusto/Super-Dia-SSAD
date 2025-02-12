@@ -1,6 +1,10 @@
 package br.com.superdia.sessionbeans;
 
+import java.net.URL;
 import java.util.List;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.superdia.interfaces.IProduto;
 import br.com.superdia.modelo.Produto;
@@ -62,6 +66,36 @@ public class ProdutoBean implements IProduto {
 	        // Tratar o caso em que mais de um produto é encontrado (improvável para ID)
 	        throw new RuntimeException("Mais de um produto encontrado com o mesmo ID", e);
 	    }
+	}
+
+	@Override
+	public boolean importarProdutos(String url) {
+		final String REDBULL_URL = "https://www.redbullshopus.com/products.json";
+		final String KYLIE_URL = "https://www.kyliecosmetics.com/products.json";
+		
+		if(!url.equals(KYLIE_URL) && !url.equals(REDBULL_URL)) {
+			return false;
+		}
+		
+		try {
+			URL productsUrl = new URL(url);
+			
+			ObjectMapper mapper = new ObjectMapper();
+			
+			JsonNode rootNode = mapper.readTree(productsUrl);
+			for(JsonNode productNode : rootNode.path("products")) {
+				String nome = productNode.path("title").asText();
+				String descricao = productNode.path("handle").asText();
+				double preco = productNode.path("variants").get(0).path("price").asDouble();
+				String imageUrl = productNode.path("images").get(0).path("src").asText();
+				String vendidoPor = url.equals(REDBULL_URL) ? "Redbull" : url.equals(KYLIE_URL) ? "Kylie" : "Não informado";
+				Produto produto = new Produto(nome, descricao, preco, 5, 100, imageUrl, vendidoPor);
+				this.adiciona(produto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 	
 }//ProdutoBean

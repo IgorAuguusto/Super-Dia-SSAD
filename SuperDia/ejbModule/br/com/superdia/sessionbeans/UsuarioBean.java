@@ -56,7 +56,8 @@ public class UsuarioBean implements IUsuario {
 	public List<Usuario> getUsuarios() {
 		CriteriaQuery<Usuario> query = em.getCriteriaBuilder().createQuery(Usuario.class);
 		query.select(query.from(Usuario.class));
-		return em.createQuery(query).getResultList();
+		List<Usuario> usuarios = em.createQuery(query).getResultList();
+		return usuarios;
 	}//getUsuarios()
 	
 	
@@ -71,47 +72,43 @@ public class UsuarioBean implements IUsuario {
 	        Predicate condicaoId = cb.equal(produto.get("id"), id);
 	        query.where(condicaoId);
 
-	        return em.createQuery(query).getSingleResult();
+	        Usuario usuario = em.createQuery(query).getSingleResult();
+	        return usuario;
 	    } catch (NoResultException e) {
-	        // Tratar o caso em que nenhum produto é encontrado
+	        // Tratar o caso em que nenhum usuário é encontrado
 	        return null;
 	    } catch (NonUniqueResultException e) {
-	        // Tratar o caso em que mais de um produto é encontrado (improvável para ID)
 	        throw new RuntimeException("Mais de um usuário encontrado com o mesmo ID", e);
 	    }
 	}
 
 	@Override
-	public boolean logar(String identificacao, String senha) {
-		// Consulta para encontrar a Pessoa com base na identificação (nome, CPF ou e-mail)
-	    String jpql = "SELECT p FROM Pessoa p WHERE p.cpf = :identificacao OR p.email = :identificacao";
-	    List<Pessoa> pessoas = em.createQuery(jpql, Pessoa.class)
-	                             .setParameter("identificacao", identificacao)
-	                             .getResultList();
+	public Usuario logar(String identificacao, String senha) {
+		Pessoa pessoa = null;
+		try {
+			String jpql = "SELECT p FROM Pessoa p WHERE p.cpf = :identificacao OR p.email = :identificacao";
+		    pessoa = em.createQuery(jpql, Pessoa.class)
+		                             .setParameter("identificacao", identificacao)
+		                             .getSingleResult();
+		} catch (NoResultException e) {
+			System.out.println("Não encontrou nenhuma pessoa com login");
+	        return null;
+		}
 
-	    // Se não encontrar nenhuma Pessoa, retorna false
-	    if (pessoas.isEmpty()) {
-	        return false;
-	    }
-
-	    // Assume que a identificação é única, então pega a primeira Pessoa da lista
-	    Pessoa pessoa = pessoas.get(0);
-
-	    // Consulta para encontrar o Usuario associado à Pessoa
-	    String jpqlUsuario = "SELECT u FROM Usuario u WHERE u.pessoa = :pessoa";
-	    List<Usuario> usuarios = em.createQuery(jpqlUsuario, Usuario.class)
-	                               .setParameter("pessoa", pessoa)
-	                               .getResultList();
-
-	    // Se não encontrar nenhum Usuario, retorna false
-	    if (usuarios.isEmpty()) {
-	        return false;
-	    }
-
-	    // Assume que cada Pessoa tem apenas um Usuario associado, então pega o primeiro
-	    Usuario usuario = usuarios.get(0);
+	    Usuario usuario = null;
+	    try {
+	    	String jpqlUsuario = "SELECT u FROM Usuario u WHERE u.pessoa = :pessoa";
+	    	usuario = em.createQuery(jpqlUsuario, Usuario.class)
+                    .setParameter("pessoa", pessoa)
+                    .getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Não encontrou nenhum usuário com pessoa");
+	        return null;
+		}
 	    
-	    return BCrypt.checkpw(senha, usuario.getSenha());
+	    boolean isPasswordCorrect = BCrypt.checkpw(senha, usuario.getSenha());
+	    
+	    return isPasswordCorrect ? usuario : null;
 	}
 	
 	private boolean isEmailAlreadyInUse(String email) {

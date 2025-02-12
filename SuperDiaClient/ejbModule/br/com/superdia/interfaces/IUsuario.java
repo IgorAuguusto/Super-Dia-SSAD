@@ -8,7 +8,7 @@ public interface IUsuario {
 	void adiciona(Usuario usuario);
 	void remove(Usuario usuario);
 	void altera(Usuario usuario);
-	boolean logar(String identificacao, String senha);
+	Usuario logar(String identificacao, String senha);
 	List<Usuario> getUsuarios();
 	Usuario getById(Long id);
 }//IUsuario

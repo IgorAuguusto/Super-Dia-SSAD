@@ -16,6 +16,7 @@ import jakarta.validation.constraints.Size;
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,8 +25,8 @@ public class Usuario implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     private Pessoa pessoa;
     
-    @NotNull(message = "A senha não pode ser nul")
-    @Size(min = 4, max = 20, message = "A senha deve ter entre 4 e 20 caracteres")
+    @NotNull(message = "A senha não pode ser null")
+    @Size(min = 3, message = "Senha deve ter mais de 3 caracteres")
     private String senha;
     
     @NotNull(message = "O perfil do usuário não pode ser nulo")

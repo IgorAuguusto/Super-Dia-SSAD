@@ -10,8 +10,12 @@ import br.com.superdia.modelo.Produto;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
@@ -68,12 +72,31 @@ public class ProdutoController implements CrudOperations<Produto>, Serializable 
 		return createResponse(Status.OK, new ApiResponse<>(Status.OK.getStatusCode(), produto, "Produto deletado com sucesso"));
 	}
 	
+	@GET
+	@Path("/importar-produtos")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response importProducts(@QueryParam("url") String url) {
+		if(url == null) {
+			return createResponse(Status.BAD_REQUEST, new ApiResponse<>(Status.BAD_REQUEST.getStatusCode(), "Forneça a URL para obter os produtos"));
+		}
+		if(url.isEmpty()) {
+			return createResponse(Status.BAD_REQUEST, new ApiResponse<>(Status.BAD_REQUEST.getStatusCode(), "Forneça a URL para obter os produtos"));
+		}
+		boolean result = produtoBean.importarProdutos(url);
+		
+		if(result) {
+			return createResponse(Status.OK, new ApiResponse<>(Status.OK.getStatusCode(), "Importação de produtos foi bem sucedida"));
+		}
+		return createResponse(Status.BAD_REQUEST, new ApiResponse<>(Status.BAD_REQUEST.getStatusCode(), "Houve um erro ao importar os produtos"));
+	}
+	
 	private Response createResponse(Status status, Object entity) {
 		if(entity == null) {
 			return Response.status(status).build();
 		}
 		return Response.status(status).entity(entity).build();
 	}
+	
 	
 	
 }
