@@ -82,9 +82,9 @@ public class ProdutoController implements CrudOperations<Produto>, Serializable 
 		if(url.isEmpty()) {
 			return createResponse(Status.BAD_REQUEST, new ApiResponse<>(Status.BAD_REQUEST.getStatusCode(), "Forneça a URL para obter os produtos"));
 		}
-		boolean result = produtoBean.importarProdutos(url);
+		boolean isImportSuccessful = produtoBean.importarProdutos(url);
 		
-		if(result) {
+		if(isImportSuccessful) {
 			return createResponse(Status.OK, new ApiResponse<>(Status.OK.getStatusCode(), "Importação de produtos foi bem sucedida"));
 		}
 		return createResponse(Status.BAD_REQUEST, new ApiResponse<>(Status.BAD_REQUEST.getStatusCode(), "Houve um erro ao importar os produtos"));
