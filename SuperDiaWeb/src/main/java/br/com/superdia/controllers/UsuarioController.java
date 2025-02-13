@@ -35,7 +35,6 @@ public class UsuarioController implements CrudOperations<Usuario>, Serializable 
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response login(LoginRequest loginRequest) {
-		
 		Usuario usuario = usuarioBean.logar(loginRequest.getLogin(), loginRequest.getSenha());
 		if(usuario == null) {
 			return createResponse(Status.BAD_REQUEST, new ApiResponse<>(Status.BAD_REQUEST.getStatusCode(), "Falha ao realizar login"));
@@ -67,7 +66,6 @@ public class UsuarioController implements CrudOperations<Usuario>, Serializable 
 	@Override
 	public Response create(Usuario usuario) {
 		try {
-			System.out.println(usuario);
 			usuarioBean.adiciona(usuario);
 		} catch (ConstraintViolationException e) {
 			if(e.getMessage().contains("email")) {

@@ -15,9 +15,9 @@ import jakarta.validation.constraints.Size;
 public class Produto implements Serializable {
     private static final long serialVersionUID = 1L;
     
-    
+    public Produto() {}
 
-    public Produto(
+	public Produto(
 			@NotNull(message = "O nome do produto não pode ser nulo") @Size(min = 3, max = 50, message = "O nome do produto deve ter entre 3 e 50 caracteres") String nome,
 			@Size(max = 200, message = "A descrição não pode exceder 200 caracteres") String descricao,
 			@NotNull(message = "O preço do produto não pode ser nulo") @DecimalMin(value = "0.0", inclusive = false, message = "O preço deve ser maior que zero") Double preco,

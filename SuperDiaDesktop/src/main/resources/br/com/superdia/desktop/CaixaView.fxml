@@ -4,10 +4,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="br.com.superdia.desktop.CaixaController" spacing="10">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="br.com.superdia.desktop.controller.CaixaController" spacing="10">
 	<padding>
         <Insets top="10" right="10" bottom="10" left="10" />
     </padding>
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Logout" onAction="#handleLogout"/>
+    </HBox>
+    
     <HBox spacing="10" alignment="CENTER_LEFT">
         <Label text="Código do Produto:"/>
         <TextField fx:id="productCodeField"/>
