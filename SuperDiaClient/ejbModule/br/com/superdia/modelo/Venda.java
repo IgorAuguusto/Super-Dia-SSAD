@@ -29,6 +29,8 @@ public class Venda implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
+	
+	private String cartao;
 
 	public Long getId() {
 		return id;
@@ -56,6 +58,14 @@ public class Venda implements Serializable{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getCartao() {
+		return cartao;
+	}
+
+	public void setCartao(String cartao) {
+		this.cartao = cartao;
 	}
 	
 	
