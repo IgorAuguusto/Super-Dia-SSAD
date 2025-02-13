@@ -1,0 +1,167 @@
+/* Estilos gerais */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Estilos do cabeçalho */
+.header {
+  background-color: #007bff;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.user-actions button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.user-actions button:hover {
+  background-color: white;
+  color: #007bff;
+}
+
+/* Estilos do container principal */
+.details-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  max-width: 800px;
+  width: 90%;
+  flex-grow: 1;
+}
+
+/* Estilos de títulos */
+h2 {
+  color: #007bff;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.5rem;
+}
+
+/* Estilos de seções */
+section {
+  margin-bottom: 2rem;
+}
+
+/* Estilos de parágrafos */
+p {
+  margin: 0.5rem 0;
+}
+
+/* Estilos de tabelas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+}
+
+td {
+  background-color: #f9f9f9;
+}
+
+tfoot td {
+  font-weight: bold;
+}
+
+/* Estilos de botões */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+.edit-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+}
+
+/* Estilos do rodapé */
+.footer {
+  background-color: #007bff;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+/* Media queries para responsividade */
+@media (max-width: 600px) {
+  .details-container {
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  th,
+  td {
+    padding: 0.5rem;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}

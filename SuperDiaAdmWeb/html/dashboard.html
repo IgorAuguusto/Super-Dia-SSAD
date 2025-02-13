@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supermercado Dia - Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Supermercado Dia</div>
+        <div class="user-actions">
+            <button id="logout">Logout</button>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <nav class="sidebar">
+            <ul>
+                <li><a href="#" class="active" data-tab="dashboard">Dashboard</a></li>
+                <li><a href="#" data-tab="products">Produtos</a></li>
+            </ul>
+        </nav>
+        <main class="main-content">
+            <div id="dashboard" class="tab-content active">
+                <h1>Dashboard de Vendas</h1>
+                <section>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome do Usuário</th>
+                                <th>Loja</th>
+                                <th>Total da Venda (R$)</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salesTable">
+                            <!-- As vendas serão carregadas aqui dinamicamente -->
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <button id="prevPage">Anterior</button>
+                        <span id="currentPage">1</span>
+                        <button id="nextPage">Próxima</button>
+                    </div>
+                </section>
+                <p id="message" class="error-message"></p>
+            </div>
+            <div id="products" class="tab-content">
+                <h1>Lista de Produtos</h1>
+                <section>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome do Produto</th>
+                                <th>Preço (R$)</th>
+                                <th>Quantidade em Estoque</th>
+                                <th>Estoque Mínimo</th>
+                                <!--<th>Ações</th>-->
+                            </tr>
+                        </thead>
+                        <tbody id="productsTable">
+                            <!-- Os produtos serão carregados aqui dinamicamente -->
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <button id="prevPageProducts">Anterior</button>
+                        <span id="currentPageProducts">1</span>
+                        <button id="nextPageProducts">Próxima</button>
+                    </div>
+                </section>
+                <p id="messageProducts" class="error-message"></p>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2025 Supermercado Dia. Todos os direitos reservados.</p>
+    </footer>
+    <script src="../JS/dashboard.js"></script>
+</body>
+</html>
+

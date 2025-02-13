@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Venda</title>
+    <link rel="stylesheet" href="../css/styleDetalhes.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Supermercado Dia</div>
+        <div class="user-actions">
+            <button id="back">Voltar</button>
+        </div>
+    </header>
+    <main class="details-container">
+        <section id="clientInfo">
+            <h2>Informações do Cliente</h2>
+            <p><strong>Nome:</strong> <span id="clientName"></span></p>
+            <p><strong>Email:</strong> <span id="clientEmail"></span></p>
+        </section>
+        <section>
+            <h2>Detalhes dos Produtos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome do Produto</th>
+                        <th>Preço (R$)</th>
+                    </tr>
+                </thead>
+                <tbody id="productTable">
+                    <!-- Os detalhes dos produtos serão carregados aqui -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td><strong>Total:</strong></td>
+                        <td id="totalPrice">0.00</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="actions">
+                <button id="deleteSale" class="delete-button">Apagar</button>
+                <button id="editSale" class="edit-button">Editar</button>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2025 Supermercado Dia. Todos os direitos reservados.</p>
+    </footer>
+    <script src="../JS/detalhes.js"></script>
+</body>
+</html>
