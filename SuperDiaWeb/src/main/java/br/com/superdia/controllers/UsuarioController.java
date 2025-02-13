@@ -13,10 +13,12 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
@@ -39,6 +41,17 @@ public class UsuarioController implements CrudOperations<Usuario>, Serializable 
 		Usuario usuario = usuarioBean.logar(loginRequest.getLogin(), loginRequest.getSenha());
 		if(usuario == null) {
 			return createResponse(Status.BAD_REQUEST, new ApiResponse<>(Status.BAD_REQUEST.getStatusCode(), "Falha ao realizar login"));
+		}
+		return createResponse(Status.OK, new ApiResponse<>(Status.OK.getStatusCode(), usuario, "OK"));
+	}
+	
+	@GET
+	@Path("/obter")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getByIdentification(@QueryParam("identification") String identification) {
+		Usuario usuario = usuarioBean.getByIdentification(identification);
+		if(usuario == null) {
+			return createResponse(Status.BAD_REQUEST, new ApiResponse<>(Status.BAD_REQUEST.getStatusCode(), "Falha ao obter usuário com essa identificação"));
 		}
 		return createResponse(Status.OK, new ApiResponse<>(Status.OK.getStatusCode(), usuario, "OK"));
 	}

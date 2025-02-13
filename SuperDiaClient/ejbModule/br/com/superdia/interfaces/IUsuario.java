@@ -11,4 +11,5 @@ public interface IUsuario {
 	Usuario logar(String identificacao, String senha);
 	List<Usuario> getUsuarios();
 	Usuario getById(Long id);
+	Usuario getByIdentification(String identificacao);
 }//IUsuario
