@@ -5,6 +5,7 @@
 		<class>br.com.superdia.modelo.Produto</class>
 		<class>br.com.superdia.modelo.Usuario</class>
 		<class>br.com.superdia.modelo.Pessoa</class>
+		<class>br.com.superdia.modelo.Venda</class>
 		<properties>
 			<property name="jakarta.persistence.schema-generation.database.action" value="update"/>
 		</properties>

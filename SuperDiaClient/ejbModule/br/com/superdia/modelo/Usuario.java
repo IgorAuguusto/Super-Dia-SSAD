@@ -31,7 +31,7 @@ public class Usuario implements Serializable {
     
     @NotNull(message = "O perfil do usuário não pode ser nulo")
     private Perfil perfil;
-
+    
     public Long getId() {
         return id;
     } // getId()
@@ -72,7 +72,7 @@ public class Usuario implements Serializable {
     public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}//setPerfil()
-
+    
 	@Override
     public String toString() {
         return String.format("id=%s, pessoa=%s, perfil=%s", id, pessoa, perfil.getPerfil().toString());

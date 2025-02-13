@@ -60,7 +60,6 @@ public class UsuarioBean implements IUsuario {
 		return usuarios;
 	}//getUsuarios()
 	
-	
 
 	@Override
 	public Usuario getById(Long id) {

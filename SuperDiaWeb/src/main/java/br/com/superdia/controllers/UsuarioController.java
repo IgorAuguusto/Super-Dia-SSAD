@@ -94,8 +94,7 @@ public class UsuarioController implements CrudOperations<Usuario>, Serializable 
 		if(usuario == null) {
 			return createResponse(Status.NOT_FOUND, new ApiResponse<>(Status.NOT_FOUND.getStatusCode(), "Usuário não encontrado"));
 		}
-		usuarioBean.remove(usuario);
-		return createResponse(Status.OK, new ApiResponse<>(Status.OK.getStatusCode(), usuario, "Usuário deletado com sucesso"));
+		return this.delete(usuario);
 	}
 	
 	private Response createResponse(Status status, Object entity) {
