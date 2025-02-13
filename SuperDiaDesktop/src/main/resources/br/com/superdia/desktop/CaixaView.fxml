@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="br.com.superdia.desktop.CaixaController" spacing="10">
+	<padding>
+        <Insets top="10" right="10" bottom="10" left="10" />
+    </padding>
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Código do Produto:"/>
+        <TextField fx:id="productCodeField"/>
+        <Label text="Quantidade:"/>
+        <TextField fx:id="quantityField"/>
+        <Button text="Adicionar" onAction="#addProductToCart"/>
+    </HBox>
+
+    <TableView fx:id="cartTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn text="Produto" fx:id="productNameColumn"/>
+            <TableColumn text="Quantidade" fx:id="quantityColumn"/>
+            <TableColumn text="Preço" fx:id="priceColumn"/>
+            <TableColumn text="Subtotal" fx:id="subtotalColumn"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Label fx:id="totalLabel" text="Total: R$ 0,00"/>
+        <Label text="CPF do Cliente:"/>
+        <TextField fx:id="customerCPFField"/>
+        <Button text="Finalizar Compra" onAction="#finalizePurchase"/>
+    </HBox>
+</VBox>
+
