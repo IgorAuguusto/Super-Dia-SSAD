@@ -40,11 +40,11 @@ public class VendasBean implements IVenda {
 		CriteriaQuery<Venda> query = em.getCriteriaBuilder().createQuery(Venda.class);
 		query.select(query.from(Venda.class));
 		List<Venda> vendas = em.createQuery(query).getResultList();
-		for(var venda: vendas) {
-			for(var produto : venda.getProdutos()) {
-				System.out.println(produto.getNome());
-			}
-		}
+//		for(var venda: vendas) {
+//			for(var produto : venda.getProdutos()) {
+//				System.out.println(produto.getNome());
+//			}
+//		}
 		return vendas;
 	}
 
@@ -76,11 +76,11 @@ public class VendasBean implements IVenda {
 					.setParameter("user", usuario)
 					.getResultList();
 			
-			for(var venda: vendas) {
-				for(var produto : venda.getProdutos()) {
-					System.out.println(produto.getNome());
-				}
-			}
+//			for(var venda: vendas) {
+//				for(var produto : venda.getProdutos()) {
+//					System.out.println(produto.getNome());
+//				}
+//			}
 			
 			return vendas;
 		} catch (NoResultException e) {
