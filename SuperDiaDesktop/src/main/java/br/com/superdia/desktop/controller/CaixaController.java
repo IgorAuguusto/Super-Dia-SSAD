@@ -47,7 +47,6 @@ public class CaixaController {
 	public void initialize() {
 	    caixaService = new CaixaService();
 
-	    // Configurar as colunas usando lambdas
 	    productNameColumn.setCellValueFactory(cellData -> cellData.getValue().productNameProperty());
 	    quantityColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
 	    priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
@@ -65,7 +64,7 @@ public class CaixaController {
 	    if (produto != null) {
 	        CartItem item = new CartItem(produto.getNome(), produto.getQuantidade(), produto.getPreco());
 	        cartItems.add(item);
-	        total += item.getSubtotal(); // Usa o método getSubtotal()
+	        total += item.getSubtotal();
 	        updateTotalLabel();
 	    }
 
@@ -76,7 +75,9 @@ public class CaixaController {
 	@FXML
 	private void finalizePurchase() {
 		String customerCPF = customerCPFField.getText();
-// TODO: Send purchase data to EJB backend
+		
+		
+		
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Compra Finalizada");
 		alert.setHeaderText(null);
@@ -86,7 +87,7 @@ public class CaixaController {
 				CPF do Cliente: %s
 				""".formatted(total, customerCPF));
 		alert.showAndWait();
-// Clear cart
+
 		cartItems.clear();
 		total = 0.0;
 		updateTotalLabel();

@@ -22,7 +22,7 @@
 
     <TableView fx:id="cartTable" VBox.vgrow="ALWAYS">
         <columns>
-            <TableColumn text="Produto" fx:id="productNameColumn"/>
+            <TableColumn text="Produto" fx:id="productNameColumn" prefWidth="200"/>
             <TableColumn text="Quantidade" fx:id="quantityColumn"/>
             <TableColumn text="Preço" fx:id="priceColumn"/>
             <TableColumn text="Subtotal" fx:id="subtotalColumn"/>
