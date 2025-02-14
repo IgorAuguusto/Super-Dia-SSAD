@@ -5,19 +5,21 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class CartItem {
+    // Propriedades JavaFX
     private final SimpleStringProperty productName;
     private final SimpleIntegerProperty quantity;
     private final SimpleDoubleProperty price;
     private final SimpleDoubleProperty subtotal;
 
+    // Construtor
     public CartItem(String productName, int quantity, double price) {
         this.productName = new SimpleStringProperty(productName);
         this.quantity = new SimpleIntegerProperty(quantity);
         this.price = new SimpleDoubleProperty(price);
-        this.subtotal = new SimpleDoubleProperty(quantity * price);
+        this.subtotal = new SimpleDoubleProperty(quantity * price); // Calcula o subtotal
     }
 
-    // Getters para as propriedades JavaFX
+    // Getters para as propriedades
     public String getProductName() {
         return productName.get();
     }
