@@ -6,5 +6,5 @@ import jakarta.ws.rs.Path;
 
 @Path("/api/validar-cartao")
 public class CartaoController {
-
+	
 }
