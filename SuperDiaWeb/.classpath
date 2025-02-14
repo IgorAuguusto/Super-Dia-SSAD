@@ -14,8 +14,8 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="/SuperDia/jars/jbcrypt-0.4.jar"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/SuperDia"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/SuperDiaClient"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/SuperDia"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/SuperDiaValidaCartao"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

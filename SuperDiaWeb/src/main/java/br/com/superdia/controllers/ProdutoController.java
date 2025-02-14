@@ -35,6 +35,14 @@ public class ProdutoController implements CrudOperations<Produto>, Serializable 
 		return createResponse(Status.OK, new ApiResponse<List<Produto>>(Status.OK.getStatusCode(), produtos, "OK"));
 	}
 	
+	@GET
+	@Path("/disponiveis")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getProdutosDisponiveis() {
+		List<Produto> produtosDisponiveis = produtoBean.getProdutosDisponiveis();
+		return createResponse(Status.OK, new ApiResponse<List<Produto>>(Status.OK.getStatusCode(), produtosDisponiveis, "OK"));
+	}
+	
 	@Override
 	public Response getById(@PathParam("id") Long id) {
 		Produto produto = produtoBean.getById(id);

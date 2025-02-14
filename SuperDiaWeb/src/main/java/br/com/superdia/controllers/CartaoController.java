@@ -25,6 +25,6 @@ public class CartaoController {
         
         boolean isValid = (resultCode == 0);
         CartaoResponse response = new CartaoResponse(isValid, resultCode);
-        return Response.ok(response).build();
+        return Response.ok(response).entity(response).build();
     }
 }

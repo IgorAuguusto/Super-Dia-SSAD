@@ -60,6 +60,8 @@
             <artifactId>jaxws-rt</artifactId>
             <version>4.0.0</version>
         </dependency>
+   
+
 
         <dependency>
             <groupId>org.slf4j</groupId>

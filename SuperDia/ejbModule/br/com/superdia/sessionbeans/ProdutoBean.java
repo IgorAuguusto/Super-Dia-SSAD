@@ -47,6 +47,12 @@ public class ProdutoBean implements IProduto {
 		query.select(query.from(Produto.class));
 		return em.createQuery(query).getResultList();
 	}//getProdutos()
+	
+	@Override
+	public List<Produto> getProdutosDisponiveis() {
+		List<Produto> produtos = getProdutos();
+		return produtos.stream().filter(produto -> produto.getQuantidadeEstoque() > 0).toList();
+	}
 
 	@Override
 	public Produto getById(Long id) {

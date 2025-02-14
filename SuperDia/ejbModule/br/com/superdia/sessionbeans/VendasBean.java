@@ -12,6 +12,7 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.transaction.Transactional;
 
 @Stateful
 @Remote(IVenda.class)
@@ -20,8 +21,14 @@ public class VendasBean implements IVenda {
 	@PersistenceContext(unitName = "SuperDia")
 	EntityManager em;
 	
+	@Transactional
 	@Override
 	public void adiciona(Venda venda) {
+		for(var produto : venda.getProdutos()) {
+			int quantidadeProduto = produto.getQuantidadeEstoque();
+			produto.setQuantidadeEstoque(quantidadeProduto - 1);
+			em.merge(produto);
+		}
 		em.persist(venda);
 	}
 

@@ -9,6 +9,7 @@ public interface IProduto {
 	void remove(Produto produto);
 	void altera(Produto produto);
 	List<Produto> getProdutos();
+	List<Produto> getProdutosDisponiveis();
 	Produto getById(Long id);
 	boolean importarProdutos(String url);
 }//IProduto
