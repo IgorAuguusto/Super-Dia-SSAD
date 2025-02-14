@@ -1,16 +1,28 @@
-const apiUrl = "http://localhost:8080/SuperDiaWeb/api/vendas/todos"; // URL da API
+const apiUrl = "http://localhost:8080/SuperDiaWeb/api/vendas/todos";
+const apiUrlProducts = "http://localhost:8080/SuperDiaWeb/api/produtos/todos";
+const apiUrlUpdateSale = "http://localhost:8080/SuperDiaWeb/api/vendas/alterar";
 const clientName = document.getElementById("clientName");
 const clientEmail = document.getElementById("clientEmail");
 const productTable = document.getElementById("productTable");
 const totalPrice = document.getElementById("totalPrice");
+const editSaleBtn = document.getElementById("editSale");
+const saveSaleBtn = document.getElementById("saveSale");
+const cancelEditBtn = document.getElementById("cancelEdit");
+const actionsHeader = document.getElementById("actionsHeader");
+const addProductRow = document.getElementById("addProductRow");
+const productDropdown = document.getElementById("productDropdown");
+const addProductButton = document.getElementById("addProductButton");
 
-// Função para obter o parâmetro da URL
+let currentSale = null;
+let allProducts = [];
+let isEditing = false;
+
 function getQueryParam(param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
 }
 
-// Função para buscar e renderizar os detalhes da venda
+// detalhes da venda
 async function fetchSaleDetails(saleId) {
   try {
     const response = await fetch(apiUrl);
@@ -18,77 +30,187 @@ async function fetchSaleDetails(saleId) {
 
     const { data } = await response.json();
 
-    // Encontra a venda com o ID fornecido
-    const sale = data.find((item) => item.id === parseInt(saleId));
+    currentSale = data.find((item) => item.id === Number.parseInt(saleId));
 
-    if (!sale) {
+    if (!currentSale) {
       alert("Venda não encontrada!");
-      window.location.href = "../html/dashboard.html"; // Volta ao dashboard se a venda não existir
+      window.location.href = "../html/dashboard.html";
       return;
     }
 
-    // Preenche as informações do cliente
-    clientName.textContent = sale.usuario.pessoa.nome;
-    clientEmail.textContent = sale.usuario.pessoa.email;
+    clientName.textContent = currentSale.usuario.pessoa.nome;
+    clientEmail.textContent = currentSale.usuario.pessoa.email;
 
-    // Preenche a tabela com os produtos
-    let total = 0;
-    sale.produtos.forEach((produto) => {
-      const row = document.createElement("tr");
-      const nameCell = document.createElement("td");
-      const priceCell = document.createElement("td");
-
-      nameCell.textContent = produto.nome;
-      priceCell.textContent = produto.preco.toFixed(2);
-
-      row.appendChild(nameCell);
-      row.appendChild(priceCell);
-      productTable.appendChild(row);
-
-      total += produto.preco;
-    });
-
-    // Exibe o total
-    totalPrice.textContent = total.toFixed(2);
+    renderProductTable();
   } catch (error) {
     console.error(error);
     alert("Erro ao carregar os detalhes da venda.");
   }
 }
 
-// Função para apagar a venda (exemplo de lógica)
-function deleteSale(saleId) {
+// Tabela de produtos
+function renderProductTable() {
+  productTable.innerHTML = "";
+  let total = 0;
+
+  currentSale.produtos.forEach((produto, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${produto.nome}</td>
+      <td>${produto.preco.toFixed(2)}</td>
+      ${
+        isEditing
+          ? `<td><button class="delete-product" data-index="${index}">Remover</button></td>`
+          : ""
+      }
+    `;
+    productTable.appendChild(row);
+    total += produto.preco;
+  });
+
+  totalPrice.textContent = total.toFixed(2);
+  actionsHeader.style.display = isEditing ? "table-cell" : "none";
+  addProductRow.style.display = isEditing ? "table-row" : "none";
+}
+
+// Funcao apagar a venda
+async function deleteSale(saleId) {
   if (confirm("Tem certeza que deseja apagar esta venda?")) {
-    // Implementar lógica de deleção
-    alert(`Venda ${saleId} apagada!`);
-    window.location.href = "../html/dashboard.html";
+    const apiUrl = `http://localhost:8080/SuperDiaWeb/api/vendas/deletar/${saleId}`;
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao apagar a venda.");
+      }
+
+      alert("Venda apagada com sucesso!");
+      window.location.href = "../html/dashboard.html";
+    } catch (error) {
+      console.error(error);
+      alert("Ocorreu um erro ao apagar a venda. Tente novamente.");
+    }
   }
 }
 
-// Função para editar a venda (exemplo de lógica)
-function editSale(saleId) {
-  // Implementar lógica de edição
-  alert(`Redirecionando para edição da venda ${saleId}.`);
+// Busca produtos
+async function fetchAllProducts() {
+  try {
+    const response = await fetch(apiUrlProducts);
+    if (!response.ok) throw new Error("Erro ao buscar os produtos.");
+
+    const { data } = await response.json();
+    allProducts = data;
+    populateProductDropdown();
+  } catch (error) {
+    console.error(error);
+    alert("Erro ao carregar a lista de produtos.");
+  }
 }
 
-// Botão "Voltar"
+// Dropdown produtos
+function populateProductDropdown() {
+  productDropdown.innerHTML = '<option value="">Selecione um produto</option>';
+  allProducts.forEach((product) => {
+    const option = document.createElement("option");
+    option.value = product.id;
+    option.textContent = `${product.nome} - R$ ${product.preco.toFixed(2)}`;
+    productDropdown.appendChild(option);
+  });
+}
+
+// Add produto venda
+function addProductToSale() {
+  const selectedProductId = Number.parseInt(productDropdown.value);
+  if (!selectedProductId) {
+    alert("Por favor, selecione um produto.");
+    return;
+  }
+
+  const selectedProduct = allProducts.find((p) => p.id === selectedProductId);
+  currentSale.produtos.push(selectedProduct);
+  renderProductTable();
+}
+
+// Remove produto da venda
+function removeProductFromSale(index) {
+  currentSale.produtos.splice(index, 1);
+  renderProductTable();
+}
+
+// Funcao para salvar edicao venda
+async function saveSaleChanges() {
+  try {
+    const response = await fetch(apiUrlUpdateSale, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(currentSale),
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao atualizar a venda.");
+    }
+
+    alert("Venda atualizada com sucesso!");
+    toggleEditMode();
+  } catch (error) {
+    console.error(error);
+    alert("Ocorreu um erro ao atualizar a venda. Tente novamente.");
+  }
+}
+
+// Modo de edicao
+function toggleEditMode() {
+  isEditing = !isEditing;
+  editSaleBtn.style.display = isEditing ? "none" : "inline-block";
+  saveSaleBtn.style.display = isEditing ? "inline-block" : "none";
+  cancelEditBtn.style.display = isEditing ? "inline-block" : "none";
+  renderProductTable();
+}
+
+// Event Listeners
+document.getElementById("deleteSale").addEventListener("click", () => {
+  const saleId = getQueryParam("saleId");
+  if (saleId) {
+    deleteSale(saleId);
+  } else {
+    alert("ID da venda não encontrado!");
+  }
+});
+
+editSaleBtn.addEventListener("click", () => {
+  toggleEditMode();
+  fetchAllProducts();
+});
+
+saveSaleBtn.addEventListener("click", saveSaleChanges);
+
+cancelEditBtn.addEventListener("click", () => {
+  if (confirm("Tem certeza que deseja cancelar as alterações?")) {
+    toggleEditMode();
+    fetchSaleDetails(currentSale.id);
+  }
+});
+
 document.getElementById("back").addEventListener("click", () => {
   window.location.href = "../html/dashboard.html";
 });
 
-// Botão "Apagar"
-document.getElementById("deleteSale").addEventListener("click", () => {
-  const saleId = getQueryParam("saleId");
-  deleteSale(saleId);
+addProductButton.addEventListener("click", addProductToSale);
+
+productTable.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-product")) {
+    const index = Number.parseInt(e.target.getAttribute("data-index"));
+    removeProductFromSale(index);
+  }
 });
 
-// Botão "Editar"
-document.getElementById("editSale").addEventListener("click", () => {
-  const saleId = getQueryParam("saleId");
-  editSale(saleId);
-});
-
-// Obtém o ID da venda da URL e carrega os detalhes
+// Pega o ID venda
 const saleId = getQueryParam("saleId");
 if (saleId) {
   fetchSaleDetails(saleId);

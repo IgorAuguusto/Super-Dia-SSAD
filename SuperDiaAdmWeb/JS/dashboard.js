@@ -11,7 +11,7 @@ let currentPageProducts = 1;
 let allSales = [];
 let allProducts = [];
 
-// Função para buscar vendas da API
+// Buscar vendas naAPI
 async function fetchSales() {
   try {
     const response = await fetch(apiUrl);
@@ -31,7 +31,7 @@ async function fetchSales() {
   }
 }
 
-// Função para buscar produtos da API
+// Buscar produtos na API
 async function fetchProducts() {
   try {
     const response = await fetch(apiUrlProducts);
@@ -51,7 +51,7 @@ async function fetchProducts() {
   }
 }
 
-// Função para renderizar as vendas na tabela
+// Carregar  vendas na tabela
 function renderSales() {
   const start = (currentPage - 1) * itemsPerPage;
   const end = start + itemsPerPage;
@@ -91,7 +91,7 @@ function renderSales() {
   );
 }
 
-// Função para renderizar os produtos na tabela
+// Carregar produtos na tabela
 function renderProducts() {
   const start = (currentPageProducts - 1) * itemsPerPage;
   const end = start + itemsPerPage;
@@ -117,10 +117,6 @@ function renderProducts() {
      </td>
       <td>${product.estoqueMinimo}</td>
     `;
-    /**
-     * 
-      <td><button onclick="editProduct(${product.id})">Editar</button></td>
-     */
     productsTable.appendChild(row);
   });
 
@@ -133,7 +129,7 @@ function renderProducts() {
   );
 }
 
-// Função para atualizar a paginação
+// Atualiza a paginacao
 function updatePagination(
   totalItems,
   currentPageNum,
@@ -147,18 +143,12 @@ function updatePagination(
   document.getElementById(nextPageId).disabled = currentPageNum === totalPages;
 }
 
-// Função para exibir os detalhes de uma venda
+// Detalhes da venda
 function showSaleDetails(saleId) {
   window.location.href = `../html/detalhes.html?saleId=${saleId}`;
 }
 
-// Função para editar um produto (a ser implementada)
-function editProduct(productId) {
-  console.log(`Editar produto com ID: ${productId}`);
-  // Implementar a lógica de edição do produto
-}
-
-// Event listeners para paginação
+// paginacao
 document.getElementById("prevPage").addEventListener("click", () => {
   if (currentPage > 1) {
     currentPage--;
@@ -187,7 +177,7 @@ document.getElementById("nextPageProducts").addEventListener("click", () => {
   }
 });
 
-// Event listener para trocar entre abas
+// Trocar abas
 document.querySelectorAll(".sidebar a").forEach((tab) => {
   tab.addEventListener("click", (e) => {
     e.preventDefault();
@@ -203,12 +193,11 @@ document.querySelectorAll(".sidebar a").forEach((tab) => {
   });
 });
 
-// Event listener para logout
+// Logout
 document.getElementById("logout").addEventListener("click", () => {
   alert("Logout realizado com sucesso!");
   window.location.href = "../html/login.html";
 });
 
-// Inicialização
 fetchSales();
 fetchProducts();

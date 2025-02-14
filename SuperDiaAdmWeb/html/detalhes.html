@@ -26,21 +26,32 @@
                     <tr>
                         <th>Nome do Produto</th>
                         <th>Preço (R$)</th>
+                        <th id="actionsHeader" style="display: none;">Ações</th>
                     </tr>
-                </thead>
+                </thead>                
                 <tbody id="productTable">
-                    <!-- Os detalhes dos produtos serão carregados aqui -->
+                    <!-- informacoes produtos-->
                 </tbody>
                 <tfoot>
+                    <tr id="addProductRow" style="display: none;">
+                        <td colspan="3">
+                            <select id="productDropdown">
+                                <!-- lista produtos -->
+                            </select>
+                            <button id="addProductButton">Adicionar Produto</button>
+                        </td>
+                    </tr>
                     <tr>
                         <td><strong>Total:</strong></td>
-                        <td id="totalPrice">0.00</td>
+                        <td id="totalPrice" colspan="2">0.00</td>
                     </tr>
                 </tfoot>
             </table>
             <div class="actions">
                 <button id="deleteSale" class="delete-button">Apagar</button>
                 <button id="editSale" class="edit-button">Editar</button>
+                <button id="saveSale" class="save-button" style="display: none;">Salvar</button>
+                <button id="cancelEdit" class="cancel-button" style="display: none;">Cancelar</button>
             </div>
         </section>
     </main>
@@ -50,3 +61,4 @@
     <script src="../JS/detalhes.js"></script>
 </body>
 </html>
+

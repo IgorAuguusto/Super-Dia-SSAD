@@ -132,6 +132,24 @@ button {
   background-color: #218838;
 }
 
+.save-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #0056b3;
+}
+
+.cancel-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #5a6268;
+}
+
 /* Estilos do rodapé */
 .footer {
   background-color: #007bff;
@@ -139,6 +157,31 @@ button {
   padding: 1rem;
   text-align: center;
   margin-top: auto;
+}
+
+/* Estilos para o dropdown e botão de adicionar produto */
+#addProductRow td {
+  padding: 0.5rem;
+}
+
+#productDropdown {
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+#addProductButton {
+  padding: 0.5rem 1rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#addProductButton:hover {
+  background-color: #218838;
 }
 
 /* Media queries para responsividade */
@@ -163,5 +206,15 @@ button {
 
   button {
     width: 100%;
+  }
+
+  #addProductRow td {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #productDropdown {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
   }
 }
