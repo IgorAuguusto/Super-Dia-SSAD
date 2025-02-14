@@ -6,6 +6,7 @@
 		<project>SuperDia</project>
 		<project>SuperDiaWeb</project>
 		<project>SuperDiaClient</project>
+		<project>SuperDiaValidaCartao</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="br.com.superdia.desktop.controller.LoginController" 
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+    <TextField fx:id="cpfField" promptText="CPF"/>
+    <PasswordField fx:id="passwordField" promptText="Senha"/>
+    <Button text="Login" onAction="#handleLogin"/>
+    <Label fx:id="messageLabel" />
+</VBox>
+

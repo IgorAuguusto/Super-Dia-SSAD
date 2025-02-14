@@ -80,6 +80,39 @@ public class UsuarioBean implements IUsuario {
 	        throw new RuntimeException("Mais de um usuário encontrado com o mesmo ID", e);
 	    }
 	}
+	
+	@Override
+	public Usuario getByIdentification(String identificacao) {
+		Pessoa pessoa = null;
+		try {
+			String jpql = "SELECT p FROM Pessoa p WHERE p.cpf = :identificacao OR p.email = :identificacao";
+		    pessoa = em.createQuery(jpql, Pessoa.class)
+		                             .setParameter("identificacao", identificacao)
+		                             .getSingleResult();
+		} catch (NoResultException e) {
+			System.out.println("Não encontrou nenhuma pessoa com essa identificação");
+	        return null;
+		} catch(Exception e) {
+			System.out.println("Erro ao encontrar pessoa com essa identificação");
+	        return null;
+		}
+		
+		Usuario usuario = null;
+	    try {
+	    	String jpqlUsuario = "SELECT u FROM Usuario u WHERE u.pessoa = :pessoa";
+	    	usuario = em.createQuery(jpqlUsuario, Usuario.class)
+                    .setParameter("pessoa", pessoa)
+                    .getSingleResult();
+	    } catch (NoResultException e) {
+			System.out.println("Não encontrou nenhum usuário com essa pessoa");
+	        return null;
+		} catch(Exception e) {
+			System.out.println("Erro ao encontrar usuário com essa pessoa");
+	        return null;
+		}
+		
+	    return usuario;
+	}
 
 	@Override
 	public Usuario logar(String identificacao, String senha) {
